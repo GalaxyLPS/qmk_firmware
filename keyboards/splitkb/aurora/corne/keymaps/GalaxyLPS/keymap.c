@@ -40,7 +40,7 @@ keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NOTED] =
 LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_J, KC_Z, KC_Y, KC_U, KC_A, KC_Q, /* | */ KC_P, KC_B, KC_M, KC_L, KC_F, DE_SS,
+        KC_J, DE_Z, DE_Y, KC_U, KC_A, KC_Q, /* | */ KC_P, KC_B, KC_M, KC_L, KC_F, DE_SS,
 //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 MO(_NOTED_SPECIAL_CHARS), KC_C, KC_S, KC_I, KC_E, KC_O, /* | */ KC_D, KC_T, KC_N, KC_R, KC_H, MO(_NOTED_SPECIAL_CHARS),
 //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -54,7 +54,7 @@ MO(_NOTED_MISC), MO(_NOTED_UPPER), KC_SPC, /* | */  KC_ENT, MO(_NOTED_UPPER), OS
 
 LAYOUT_split_3x6_3(
 //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        S(KC_J), S(DE_Y), S(DE_Z), S(KC_U), S(KC_A), S(KC_Q),/* | */ S(KC_P), S(KC_B), S(KC_M), S(KC_L), S(KC_F), S(
+        S(KC_J), S(DE_Z), S(DE_Y), S(KC_U), S(KC_A), S(KC_Q),/* | */ S(KC_P), S(KC_B), S(KC_M), S(KC_L), S(KC_F), S(
         DE_SS),
 //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 KC_NO, S(KC_C), S(KC_S), S(KC_I), S(KC_E), /* | */  S(KC_O), S(KC_D), S(KC_T), S(KC_N), S(KC_R), S(KC_H), KC_NO,
@@ -120,3 +120,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 };
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+
+void numlock_on(void) {
+    led_t led_state = host_keyboard_led_state();
+    bool b = led_state.num_lock;
+    if (!b) {
+        register_code(KC_NUM_LOCK);
+        unregister_code(KC_NUM_LOCK);
+    }
+}
+
+void keyboard_post_init_user() {
+    numlock_on();
+}
