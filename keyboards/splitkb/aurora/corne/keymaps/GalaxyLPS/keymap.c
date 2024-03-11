@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         KC_NO, DE_EURO, DE_CIRC, DE_LBRC, DE_RBRC, DE_UNDS, /* | */ DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, DE_AT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO, ALGR(DE_SS), DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR, /* | */ DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, KC_NO,
+        KC_NO, ALGR(DE_SS), DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR, /* | */ DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, KC_F18,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_TRNS, DE_HASH, DE_DLR, DE_PIPE, DE_TILD, DE_GRV, /* | */ DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_TRNS,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [_NOTED_NAVIGATION] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_NO, /* | */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_P0, /* | */ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_PSCR, KC_NO, KC_P4, KC_P5, KC_P6, KC_DEL, /* | */ KC_BSPC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_NO,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_NO, C(KC_V), C(KC_X), C(DE_UDIA), C(DE_ADIA), C(DE_ODIA), /* | */ C(KC_W), C(KC_G), C(KC_COMM), C(KC_DOT), C(KC_K), KC_NO,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-        KC_NO, KC_TRNS, KC_NO, /* | */ KC_NO, KC_LALT, KC_NO
+        KC_NO, KC_TRNS, KC_NO, /* | */ C(KC_ENT), KC_LALT, KC_NO
         //`--------------------------'  `--------------------------'
         ),
     [_NOTED_ALT] = LAYOUT_split_3x6_3(
