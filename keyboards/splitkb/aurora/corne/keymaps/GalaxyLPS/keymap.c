@@ -131,10 +131,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Function Layer (RGB Control + Media) */
-    [_FUNCTION] = LAYOUT_split_3x6_3(KC_F12, KC_F7, KC_F8, KC_F9, KC_PSCR, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, KC_F11, KC_F4, KC_F5, KC_F6, KC_SCRL, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    [_FUNCTION] = LAYOUT_split_3x6_3(
+        KC_F12, KC_F7, KC_F8, KC_F9, KC_PSCR, _______,                              _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
+        KC_F11, KC_F4, KC_F5, KC_F6, KC_SCRL, _______,                               _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
+        KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUS, _______,                               _______, _______, _______, _______, _______, _______,
+        _______, _______, _______,                                                  _______, _______, _______
+    ),
 
     /* Adjust Layer (One-Shot für RGB/Media) */
-    [_ADJUST] = LAYOUT_split_3x6_3(QK_BOOT, QK_RBT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, UG_TOGG, UG_NEXT, UG_HUEU, UG_SATD, UG_VALU, UG_SPDU, _______, _______, _______, _______, _______, _______, _______, UG_PREV, UG_HUED, UG_SATD, UG_VALD, UG_SPDD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
+    [_ADJUST] = LAYOUT_split_3x6_3(
+        QK_BOOT, QK_RBT, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
+        UG_TOGG, UG_NEXT, UG_HUEU, UG_SATD, UG_VALU, UG_SPDU,                        _______, _______, _______, _______, _______, _______,
+        _______, UG_PREV, UG_HUED, UG_SATD, UG_VALD, UG_SPDD,                        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______,                                                  _______, _______, _______
+    )};
 
 // ==================== ENCODER ====================
 #if defined(ENCODER_ENABLE)
