@@ -33,45 +33,11 @@ const HSV layer_colors[] = {
     [_FUNCTION] = {240, 255, 150}, // Pink
     [_ADJUST]   = {0, 255, 200}    // Rot
 };
-
-const rgblight_segment_t PROGMEM base_layer[]  = RGBLIGHT_LAYER_SEGMENTS({6, 4, HSV_RED}, {12, 4, HSV_RED});
-const rgblight_segment_t PROGMEM upper_layer[] = RGBLIGHT_LAYER_SEGMENTS({6, 4, HSV_GREEN}, {12, 4, HSV_GREEN});
-
-const rgblight_segment_t *const PROGMEM rgblight_all_layers[] = RGBLIGHT_LAYERS_LIST(base_layer, upper_layer);
-
 void keyboard_post_init_user(void) {
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_DEFAULT_MODE);
-    rgblight_layers = rgblight_all_layers;
-
     if (!host_keyboard_led_state().num_lock) {
         tap_code(KC_NUM_LOCK);
     }
 }
-
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
-    return true;
-}
-
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE));
-    return state;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(2, layer_state_cmp(2, _UPPER));
-    rgblight_set_layer_state(2, layer_state_cmp(3, _SYMBOL));
-    return state;
-}
-
-/*
-layer_state_t layer_state_set_user(layer_state_t state) {
-    uint8_t layer = get_highest_layer(state);
-    rgblight_sethsv_noeeprom(layer_colors[layer].h, layer_colors[layer].s, layer_colors[layer].v);
-    return state;
-}
-*/
 
 // ==================== TASTENBELEGUNG ====================
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -101,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Symbol Layer */
     [_SYMBOL] = LAYOUT_split_3x6_3(
         _______, DE_EURO, DE_CIRC, DE_LBRC, DE_RBRC, DE_UNDS,                      DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, DE_AT,
-        KC_LSFT, ALGR(DE_SS), DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR,                      DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, _______,
+        KC_LSFT, ALGR(DE_SS), DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR,                  DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, _______,
         _______, DE_HASH, DE_DLR, DE_PIPE, DE_TILD, DE_GRV,                        DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_RSFT,
         _______, KC_LCTL, _______,                                                    _______, KC_LALT, _______
     ),
@@ -118,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_CONTROL] = LAYOUT_split_3x6_3(
         C(KC_J), C(DE_Z), C(DE_Y), C(KC_U), C(KC_A), C(KC_Q),                     C(KC_P), C(KC_B), C(KC_M), C(KC_L), C(KC_F), C(DE_SS),
         KC_LSFT, C(KC_C), C(KC_S), C(KC_I), C(KC_E), C(KC_O),                     C(KC_D), C(KC_T), C(KC_N), C(KC_R), C(KC_H), KC_RSFT,
-        _______, C(KC_V), C(KC_X), C(DE_UDIA), C(DE_ADIA), C(DE_ODIA),              C(KC_W), C(KC_G), C(KC_COMM), C(KC_DOT), C(KC_K), _______,
+        _______, C(KC_V), C(KC_X), C(DE_UDIA), C(DE_ADIA), C(DE_ODIA),            C(KC_W), C(KC_G), C(KC_COMM), C(KC_DOT), C(KC_K), _______,
         _______, KC_LCTL, _______,                                                     _______, _______, _______
     ),
 
@@ -130,25 +96,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LCTL, _______,                                                 _______, _______, _______
     ),
 
-    /* Function Layer (RGB Control + Media) */
-    [_FUNCTION] = LAYOUT_split_3x6_3(KC_F12, KC_F7, KC_F8, KC_F9, KC_PSCR, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, KC_F11, KC_F4, KC_F5, KC_F6, KC_SCRL, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    /* Function Layer */
+    [_FUNCTION] = LAYOUT_split_3x6_3(
+        KC_F12, KC_F7, KC_F8, KC_F9, KC_PSCR, _______,					_______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
+        KC_F11, KC_F4, KC_F5, KC_F6, KC_SCRL, _______,					 _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
+        KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUS, _______,					 _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, 						_______, _______, _______
+        ),
 
     /* Adjust Layer (One-Shot für RGB/Media) */
-    [_ADJUST] = LAYOUT_split_3x6_3(QK_BOOT, QK_RBT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, UG_TOGG, UG_NEXT, UG_HUEU, UG_SATD, UG_VALU, UG_SPDU, _______, _______, _______, _______, _______, _______, _______, UG_PREV, UG_HUED, UG_SATD, UG_VALD, UG_SPDD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
+    [_ADJUST] = LAYOUT_split_3x6_3(
+        QK_BOOT, QK_RBT, _______, _______, _______, _______,				 	KC_NUM, _______, _______, _______, _______, _______,
+        UG_TOGG, UG_NEXT, UG_HUEU, UG_SATD, UG_VALU, UG_SPDU, 					_______, _______, _______, _______, _______, _______,
+        _______, UG_PREV, UG_HUED, UG_SATD, UG_VALD, UG_SPDD,					_______, _______, _______, _______, _______, _______,
+        _______, _______, _______,												 _______, _______, _______
+        )};
 
 // ==================== ENCODER ====================
 #if defined(ENCODER_ENABLE)
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
-
-
-        case _ADJUST:
-            if (clockwise) {
-                rgblight_increase_hue_noeeprom();
-            } else {
-                rgblight_decrease_hue_noeeprom();
-            }
-            break;
         case _CONTROL:
             if (clockwise) {
                 tap_code16(C(KC_RGHT)); // Strg + →
@@ -166,20 +133,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
-
-// ==================== KEYCODE HANDLING ====================
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case RGB_NXT:
-                rgblight_step_noeeprom();
-                return false;
-            case RGB_PRV:
-                rgblight_step_reverse_noeeprom();
-                return false;
-
-
-        }
-    }
-    return true;
-}
