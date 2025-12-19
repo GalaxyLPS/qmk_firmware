@@ -33,12 +33,6 @@ const HSV layer_colors[] = {
     [_FUNCTION] = {240, 255, 150}, // Pink
     [_ADJUST]   = {0, 255, 200}    // Rot
 };
-void keyboard_post_init_user(void) {
-    if (!host_keyboard_led_state().num_lock) {
-        tap_code(KC_NUM_LOCK);
-    }
-}
-
 // ==================== TASTENBELEGUNG ====================
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base Layer (Noted Layout) */
@@ -74,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Navigation Layer */
     [_NAV] = LAYOUT_split_3x6_3(
-        _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_P0,                        KC_LGUI, _______, _______, _______, _______, _______,
-        KC_PSCR, _______, KC_P4,   KC_P5,   KC_P6,   KC_DEL,                       KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RSFT,
-        KC_LSFT, _______, KC_P1,   KC_P2,   KC_P3,   KC_NUM,                      KC_END, _______, _______, _______, _______, _______,
+        KC_PSCR, _______, KC_P7,   KC_P8,   KC_P9,   KC_P0,                        KC_LGUI, _______, _______, _______, _______, _______,
+        KC_LSFT, _______, KC_P4,   KC_P5,   KC_P6,   KC_DEL,                       KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RSFT,
+        _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_NUM,                      KC_END, _______, _______, _______, _______, _______,
         _______, KC_LCTL, KC_TAB,                                                 KC_ESC,  KC_LALT,  _______
     ),
 
@@ -118,9 +112,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _CONTROL:
             if (clockwise) {
-                tap_code16(C(KC_RGHT)); // Strg + →
+                tap_code16(MS_WHLR);
             } else {
-                tap_code16(C(KC_LEFT)); // Strg + ←
+                tap_code16(MS_WHLL);
+            }
+            break;
+        case _UPPER:
+            if (clockwise) {
+                tap_code16(MS_WHLU);
+            } else {
+                tap_code16(MS_WHLD);
             }
             break;
         default:
@@ -130,6 +131,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code(KC_VOLD);
             }
     }
-    return true;
+    return false;
 }
 #endif
+
+void keyboard_post_init_user(void) {
+    if (!host_keyboard_led_state().num_lock) {
+        tap_code(KC_NUM_LOCK);
+    }
+}
