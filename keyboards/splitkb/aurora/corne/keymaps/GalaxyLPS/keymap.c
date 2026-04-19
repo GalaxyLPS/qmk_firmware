@@ -1,8 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
-#ifdef RGBLIGHT_ENABLE
-#    include "rgblight.h"
-#endif
+
+
 
 #define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 #define UNICODE_KEY_LNX LCTL(LSFT(KC_U))
@@ -141,27 +140,17 @@ const uint32_t PROGMEM unicode_map[] = {
     [SHARP_S] = 0x1E9E, // ẞ
 };
 
-// ==================== RGB KONFIGURATION ====================
-const HSV layer_colors[] = {
-    [_BASE]     = {170, 255, 150}, // Blau
-    [_UPPER]    = {30, 255, 150},  // Gold
-    [_SYMBOL]   = {213, 255, 150}, // Lila
-    [_NAV]      = {85, 255, 150},  // Grün
-    [_CONTROL]  = {0, 200, 200},   // Orange
-    [_ALT]      = {180, 255, 150}, // Türkis
-    [_FUNCTION] = {240, 255, 150}, // Pink
-    [_ADJUST]   = {0, 255, 200}    // Rot
-};
+
 // ==================== TASTENBELEGUNG ====================
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base Layer (Noted Layout) */
     [_BASE] = LAYOUT_split_3x6_3(
         KC_J,    DE_Z,    DE_Y,    KC_U,    KC_A,    KC_Q,                         KC_P,    KC_B,    KC_M,    KC_L,    KC_F,    MO(_SPECIAL_CHARS),
-        MO(_UPPER), KC_C,    KC_S,    KC_I,    KC_E,    KC_O,                         KC_D,    KC_T,    KC_N,    KC_R,    KC_H,    MO(_UPPER),
+        MO(_UPPER), MT(MOD_LCTL, KC_C), MT(MOD_LSFT, KC_S), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E),   KC_O,                         KC_D,    MT(MOD_LGUI, KC_T),    MT(MOD_LALT, KC_N),    MT(MOD_LSFT, KC_R),    MT(MOD_LCTL, KC_H),    MO(_UPPER),
         MO(_SYMBOL), KC_V,    KC_X,    DE_UDIA, DE_ADIA, DE_ODIA,                      KC_W,    KC_G,    KC_COMM, KC_DOT,  KC_K,    MO(_SYMBOL),
 
 
-                                 MO(_NAV), MO(_CONTROL), KC_SPC,                                         KC_ENT,  MO(_ALT), OSL(_ADJUST)
+                                 MO(_NAV), MO(_CONTROL), KC_SPC,                                         KC_ENT,  MO(_NAV), OSL(_ADJUST)
     ),
 
     /* Upper Layer (Shifted Keys) */
@@ -188,8 +177,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Symbol Layer */
     [_SYMBOL] = LAYOUT_split_3x6_3(
         _______, DE_EURO, DE_CIRC, DE_LBRC, DE_RBRC, DE_UNDS,                      DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, DE_AT,
-        KC_LSFT, ALGR(DE_SS), DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR,                  DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, _______,
-        _______, DE_HASH, DE_DLR, DE_PIPE, DE_TILD, DE_GRV,                        DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_RSFT,
+        KC_LSFT, ALGR(DE_SS), DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR,                  DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, KC_RSFT,
+        _______, DE_HASH, DE_DLR, DE_PIPE, DE_TILD, DE_GRV,                        DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, _______,
         _______, KC_LCTL, _______,                                                    _______, KC_LALT, _______
     ),
 
@@ -197,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT_split_3x6_3(
         KC_PSCR, _______, KC_P7,   KC_P8,   KC_P9,   KC_P0,                        KC_LGUI,   _______,  _______,  _______,   _______,   _______,
         KC_LSFT, _______, KC_P4,   KC_P5,   KC_P6,   KC_DEL,                       KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RSFT,
-        _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_HOME,                      KC_END, _______, _______, _______, _______, _______,
+        _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_HOME,                      KC_END, _______, KC_PGDN, KC_PGUP, _______, _______,
         _______, KC_LCTL, KC_TAB,                                                 KC_ESC,  KC_LALT,  _______
     ),
 
