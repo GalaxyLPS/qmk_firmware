@@ -10,12 +10,9 @@
 // ==================== LAYER DEFINITION ====================
 enum layer_names {
     _BASE = 0,
-    _UPPER,
     _SPECIAL_CHARS,
     _SYMBOL,
     _NAV,
-    _CONTROL,
-    _ALT,
     _FUNCTION,
     _ADJUST,
     _LAYER_COUNT
@@ -146,25 +143,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base Layer (Noted Layout) */
     [_BASE] = LAYOUT_split_3x6_3(
         KC_J,    DE_Z,    DE_Y,    KC_U,    KC_A,    KC_Q,                         KC_P,    KC_B,    KC_M,    KC_L,    KC_F,    MO(_SPECIAL_CHARS),
-        MO(_UPPER), MT(MOD_LCTL, KC_C), MT(MOD_LSFT, KC_S), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E),   KC_O,                         KC_D,    MT(MOD_LGUI, KC_T),    MT(MOD_LALT, KC_N),    MT(MOD_LSFT, KC_R),    MT(MOD_LCTL, KC_H),    MO(_UPPER),
+        _______, MT(MOD_LGUI, KC_C), MT(MOD_LALT, KC_S), MT(MOD_LSFT, KC_I), MT(MOD_LCTL, KC_E),   KC_O,                         KC_D,    MT(MOD_LCTL, KC_T),    MT(MOD_LSFT, KC_N),    MT(MOD_LALT, KC_R),    MT(MOD_LGUI, KC_H),    _______,
         MO(_SYMBOL), KC_V,    KC_X,    DE_UDIA, DE_ADIA, DE_ODIA,                      KC_W,    KC_G,    KC_COMM, KC_DOT,  KC_K,    MO(_SYMBOL),
 
 
-                                 MO(_NAV), MO(_CONTROL), KC_SPC,                                         KC_ENT,  MO(_NAV), OSL(_ADJUST)
-    ),
-
-    /* Upper Layer (Shifted Keys) */
-    [_UPPER] = LAYOUT_split_3x6_3(
-        LSFT(KC_J), LSFT(DE_Z), LSFT(DE_Y), LSFT(KC_U), LSFT(KC_A), LSFT(KC_Q),    LSFT(KC_P), LSFT(KC_B), LSFT(KC_M), LSFT(KC_L), LSFT(KC_F), MO(_SPECIAL_CHARS),
-
-        _______,    LSFT(KC_C), LSFT(KC_S), LSFT(KC_I), LSFT(KC_E), LSFT(KC_O),    LSFT(KC_D), LSFT(KC_T), LSFT(KC_N), LSFT(KC_R), LSFT(KC_H), _______,
-
-
-        _______,    LSFT(KC_V), LSFT(KC_X), LSFT(DE_UDIA), LSFT(DE_ADIA), LSFT(DE_ODIA), LSFT(KC_W), LSFT(KC_G), KC_SCLN, KC_COLN, LSFT(KC_K), _______,
-
-
-        
-        _______, KC_LCTL, LSFT(KC_SPC),                         LSFT(KC_ENT), _______, _______
+                                 _______, MO(_NAV), KC_SPC,                                         KC_ENT,  MO(_NAV), OSL(_ADJUST)
     ),
 
     [_SPECIAL_CHARS] = LAYOUT_split_3x6_3(
@@ -187,23 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSCR, _______, KC_P7,   KC_P8,   KC_P9,   KC_P0,                        KC_LGUI,   _______,  _______,  _______,   _______,   _______,
         KC_LSFT, _______, KC_P4,   KC_P5,   KC_P6,   KC_DEL,                       KC_BSPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RSFT,
         _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_HOME,                      KC_END, _______, KC_PGDN, KC_PGUP, _______, _______,
-        _______, KC_LCTL, KC_TAB,                                                 KC_ESC,  KC_LALT,  _______
-    ),
-
-    /* Control Layer */
-    [_CONTROL] = LAYOUT_split_3x6_3(
-        C(KC_J), C(DE_Z), C(DE_Y), C(KC_U), C(KC_A), C(KC_Q),                     C(KC_P), C(KC_B), C(KC_M), C(KC_L), C(KC_F), C(DE_SS),
-        KC_LSFT, C(KC_C), C(KC_S), C(KC_I), C(KC_E), C(KC_O),                     C(KC_D), C(KC_T), C(KC_N), C(KC_R), C(KC_H), KC_RSFT,
-        _______, C(KC_V), C(KC_X), C(DE_UDIA), C(DE_ADIA), C(DE_ODIA),            C(KC_W), C(KC_G), C(KC_COMM), C(KC_DOT), C(KC_K), _______,
-        _______,  _______, _______,                                                     _______, KC_LALT, _______
-    ),
-
-    /* Alt Layer */
-    [_ALT] = LAYOUT_split_3x6_3(
-        A(KC_J), A(DE_Z), A(DE_Y), A(KC_U), A(KC_A), A(KC_Q),                     A(KC_P), A(KC_B), A(KC_M), A(KC_L), A(KC_F), A(DE_SS),
-        KC_LSFT, A(KC_C), A(KC_S), A(KC_I), A(KC_E), A(KC_O),                     A(KC_D), A(KC_T), A(KC_N), A(KC_R), A(KC_H), KC_RSFT,
-        _______, A(KC_V), A(KC_X), A(DE_UDIA), A(DE_ADIA), A(DE_ODIA),              A(KC_W), A(KC_G), A(KC_COMM), A(KC_DOT), A(KC_K), MO(_FUNCTION),
-        _______, KC_LCTL, _______,                                                 _______, _______, _______
+        KC_LCTL, _______, KC_TAB,                                                 KC_ESC,  _______,  _______
     ),
 
     /* Function Layer */
@@ -220,26 +187,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         UG_TOGG, UG_NEXT, UG_HUEU, UG_SATD, UG_VALU, UG_SPDU, 					_______, _______, _______, _______, _______, _______,
         _______, UG_PREV, UG_HUED, UG_SATD, UG_VALD, UG_SPDD,					_______, _______, _______, _______, _______, _______,
         _______, _______, _______,												 _______, _______, _______
-        )};
+        )
+    };
 
 // ==================== ENCODER ====================
 #if defined(ENCODER_ENABLE)
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
-        case _CONTROL:
-            if (clockwise) {
-                tap_code16(MS_WHLR);
-            } else {
-                tap_code16(MS_WHLL);
-            }
-            break;
-        case _UPPER:
-            if (clockwise) {
-                tap_code16(MS_WHLU);
-            } else {
-                tap_code16(MS_WHLD);
-            }
-            break;
         default:
             if (clockwise) {
                 tap_code(KC_VOLU);
